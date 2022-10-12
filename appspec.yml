@@ -1,0 +1,7 @@
+version: 0.0
+os: linux
+files:
+  - source: /client/
+    destination: /home/ubuntu
+  - source: /server/
+    destination: /home/ubuntu
