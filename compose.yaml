@@ -1,0 +1,12 @@
+services:
+  app:
+    image: go
+    build:
+      args:
+        - target=dev
+    environment:
+      PORT: 8080
+    volumes:
+      - .:/app
+    ports:
+      - "18000:8080"
