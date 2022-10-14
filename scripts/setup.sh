@@ -6,5 +6,9 @@ sudo apt install -y nodejs
 sudo npm install -g yarn
 
 git clone https://github.com/jphacks/C_2204.git
+
+# run
 cd ./C_2204/client/
-sudo yarn install
+yarn install --prod --frozen-lockfile
+yarn build
+yarn start
