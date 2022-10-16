@@ -1,0 +1,137 @@
+openapi: 3.0.3
+info:
+  title: fake memory
+  description: fake memory api
+  version: 1.0.0
+tags:
+  - name: user
+    description: Operations about user
+paths:
+  /photos/presigned-url:
+    get:
+      tags:
+        - photo
+      summary: s3へのアップロード用署名付きURL
+      description: "presigned urlとkeyを返す 参考: https://docs.aws.amazon.com/ja_jp/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html"
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PresignedURL'
+  /photos/persons:
+    get:
+      tags:
+        - photo
+      summary: 切り抜かれた人画像一覧
+      description: 人の画像URLを返す
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CropedPersonURL'
+  /photos/crop:
+    post:
+      tags:
+        - photo
+      summary: 画像から人を切り抜いてURLを返す
+      description: keyを指定するとその画像を切り抜く
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CropedPersonURL'
+  /photos:
+    get:
+      tags:
+        - photo
+      summary: 作成された画像一覧
+      description: 捏造思い出の一覧を返す
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Photo'
+    post:
+      tags:
+        - photo
+      summary: 投稿作成
+      description: hoge
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                key:
+                  type: string
+                  description: s3オブジェクトのkey
+                  example: key
+                body:
+                  type: string
+                  description: 投稿内容
+                  example: 友達と夢の国に行ってきた
+      responses:
+        '201':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Photo'
+
+components:
+  schemas:
+    CropedPersonURL:
+      type: object
+      description: s3上で画像を識別するkeyと画像をGETするためのurl
+      properties:
+        key:
+          type: string
+          example: key-name
+        url:
+          type: string
+          format: url
+          example: https://my-bucket.s3-ap-northeast-1.amazonaws.com/key-name?hoge=fuga
+    PresignedURL:
+      type: object
+      description: s3に画像をPUTするために必要なURLとkey
+      properties:
+        key:
+          type: string
+          example: key-name
+        url:
+          type: string
+          format: url
+          example: https://my-bucket.s3-ap-northeast-1.amazonaws.com/key-name?hoge=fuga
+    Photo:
+      type: object
+      description: 捏造された思い出
+      properties:
+        image:
+          $ref: '#/components/schemas/CropedPersonURL'
+        user:
+          type: object
+          description: SNS機能の実装まで空っぽで返す
+        body:
+          type: string
+          description: つぶやきの内容
+          example: 友達と夢の国行ってきた
+        created_at:
+          type: string
+          format: date-time
+        likes:
+          type: integer
+          description: いいね数 とりあえず0
+          example: 0
