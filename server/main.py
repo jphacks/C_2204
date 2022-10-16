@@ -4,7 +4,7 @@ from database import setup_db
 import routing
 import settings as s
 
-DEBUG = False
+DEBUG = True
 
 
 def setup_app():
@@ -13,6 +13,7 @@ def setup_app():
     setup_db(app)
 
     app.register_blueprint(routing.api)
+
     return app
 
 
