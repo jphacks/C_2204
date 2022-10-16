@@ -4,7 +4,7 @@ from database import setup_db
 import routing
 import settings as s
 
-DEBUG = True
+DEBUG = False
 
 
 def setup_app():

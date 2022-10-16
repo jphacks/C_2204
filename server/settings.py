@@ -2,6 +2,7 @@ import os
 from os.path import join, dirname
 from dotenv import load_dotenv
 
+# load_dotenv(override=True)
 load_dotenv(join(dirname(__file__), ".env"))
 
 try:
@@ -18,4 +19,4 @@ except KeyError:
     raise "環境変数を確認してください."
 
 if __name__ == "__main__":
-    print(os.getenv("PORT"))
+    print(os.getenv("APP_PORT"))
