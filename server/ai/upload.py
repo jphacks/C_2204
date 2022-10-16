@@ -22,9 +22,6 @@ def upload_file(file_name, bucket, object_name=None):
 #   else:
 #       s3 = boto3.client("s3", config=Config(signature_version="s3v4", region_name=os.getenv('AWS_S3_REGION_NAME', 'ap-northeast-1')))
 
-
-# comment
-
     # If S3 object_name was not specified, use file_name
     if object_name is None:
         object_name = os.path.basename(file_name)
