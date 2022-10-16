@@ -72,7 +72,37 @@ services:
       client:
         condition: service_started
 
+  minio:
+    container_name: jphacks_minio
+    image: minio/minio
+    ports:
+      - '9000:9000'
+      - '9001:9001'
+    volumes:
+      - minio-data:/data:delegated
+    command: ['server', '--console-address', ':9001', '--compat', '/data']
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 1s
+      retries: 10
+
+  createbuckets: # docker compose upするとexit with code 0で終了しますが、バケット作成は成功しているので大丈夫です
+    image: minio/mc
+    depends_on:
+      minio:
+        condition: service_healthy
+    entrypoint: >
+      /bin/sh -c "
+      until (/usr/bin/mc alias set myminio http://minio:9000 minioadmin minioadmin) do echo '...waiting...' && sleep 1; done;
+      /usr/bin/mc mb myminio/jphacks;
+      /usr/bin/mc policy set public myminio/jphacks;
+      exit 0;
+      "
+
 volumes:
   db-data:
     name: jphacks-db-data
+    external: true
+  minio-data:
+    name: jphacks-minio-data
     external: true
