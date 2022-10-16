@@ -6,6 +6,7 @@ load_dotenv(join(dirname(__file__), ".env"))
 
 try:
     APP_PORT = os.getenv("APP_PORT")
+    APP_SECRET_KEY = os.getenv("APP_SECRET_KEY")
     MYSQL_HOST = os.getenv("MYSQL_HOST")
     MYSQL_PORT = os.getenv("MYSQL_PORT")
     MYSQL_DATABASE = os.getenv("MYSQL_DATABASE")
