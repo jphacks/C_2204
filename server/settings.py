@@ -2,7 +2,9 @@ import os
 from os.path import join, dirname
 from dotenv import load_dotenv
 
+# 環境変数をどうしても上書きする必要がある際に利用(デフォルトは上書きしない)
 # load_dotenv(override=True)
+# .envファイルが見つからないと上位のディレクトリすべてを探してしまう
 load_dotenv(join(dirname(__file__), ".env"))
 
 try:
@@ -18,5 +20,6 @@ try:
 except KeyError:
     raise "環境変数を確認してください."
 
+# テスト
 if __name__ == "__main__":
     print(os.getenv("APP_PORT"))
