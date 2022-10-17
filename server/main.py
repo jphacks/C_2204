@@ -1,7 +1,7 @@
 from flask import Flask
 from database import setup_db
 
-import routing
+import controller
 import settings as s
 
 DEBUG = True
@@ -16,7 +16,7 @@ def create_app():
     setup_db(app)
 
     # APIのルーティングをロード
-    app.register_blueprint(routing.api)
+    app.register_blueprint(controller.api)
 
     return app
 
