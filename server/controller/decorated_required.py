@@ -1,4 +1,6 @@
-from flask import request, make_response, jsonify
+import service
+
+from flask import request
 from functools import wraps
 
 
@@ -18,7 +20,7 @@ def required_field(required_header: dict = {}, required_body: dict = {}):
             for k, v in required_header.items():
                 rh = request.headers.get(k)
                 if rh is None or (v != "any" and rh != v):
-                    return make_response(jsonify({"code": 400, "status": "Bad Request"})), 400
+                    return service.bad_request_response()
 
             # ボディに必須フィールドが存在するか確認
             if any(required_body):
@@ -27,10 +29,10 @@ def required_field(required_header: dict = {}, required_body: dict = {}):
                     for k, v in required_body.items():
                         rh = request.form.get(k)
                         if rh is None or (v != "any" and rh != v):
-                            return make_response(jsonify({"code": 400, "status": "Bad Request"})), 400
+                            return service.bad_request_response()
 
                 else:
-                    return make_response(jsonify({"code": 400, "status": "Bad Request"})), 400
+                    return service.bad_request_response()
 
             return func(*args, **kwargs)
 
