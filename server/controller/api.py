@@ -1,10 +1,12 @@
 from flask import Blueprint, make_response, jsonify
+from controller.decorated_required import required_field
 
 api = Blueprint("api", __name__)
 
 
 # ヘルスチェック
 @api.get("/helth")
+@required_field(required=["Content-Type"])
 def helth():
     return make_response(jsonify({"code": 200, "status": "ok"}))
 
