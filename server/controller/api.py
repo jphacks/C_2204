@@ -6,7 +6,7 @@ api = Blueprint("api", __name__)
 
 # ヘルスチェック
 @api.get("/helth")
-@required_field(required=["Content-Type"])
+@required_field(required_header={"Content-Type": "application/json"})
 def helth():
     return make_response(jsonify({"code": 200, "status": "ok"}))
 
