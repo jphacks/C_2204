@@ -36,10 +36,6 @@ paths:
                     type: boolean
                     description: すでに存在している場合
                     example: true
-                  user_name:
-                    type: string
-                    description: 表示名
-                    example: jphacks!
 
   /user/signup:
     post:
