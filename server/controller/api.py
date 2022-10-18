@@ -12,6 +12,12 @@ def health():
     return service.ok_response()
 
 
+# s3へのアップロード用署名付きURL
+@api.get("/photos/presigned-url")
+def get_photos_presigned_url():
+    return service.get_photos_presigned_url_response()
+
+
 # 作成された画像一覧
 @api.get("/photos")
 def get_photos():
@@ -32,13 +38,7 @@ def get_photos_persons():
 
 
 # 画像から人を切り抜いてURLを返す
-@api.post("/photos/persons")
+@api.post("/photos/crop")
 @required_field(required_header={"Content-Type": "application/json"}, required_body={"key": "any"})
-def post_photos_persons():
-    return service.post_photos_persons_response()
-
-
-# s3へのアップロード用署名付きURL
-@api.get("/photos/presigned-url")
-def get_photos_presigned_url():
-    return service.get_photos_presigned_url_response()
+def post_photos_crop():
+    return service.post_photos_crop_response()
