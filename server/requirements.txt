@@ -1,0 +1,5 @@
+mysqlclient
+flask
+flask-sqlalchemy
+python-dotenv
+boto3
