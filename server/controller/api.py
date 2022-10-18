@@ -8,7 +8,6 @@ api = Blueprint("api", __name__)
 
 # ヘルスチェック
 @api.get("/health")
-@required_field(required_header={"Content-Type": "application/json"})
 def health():
     return service.ok_response()
 
@@ -21,6 +20,7 @@ def get_photos():
 
 # 投稿作成
 @api.post("/photos")
+@required_field(required_header={"Content-Type": "application/json"}, required_body={"key": "any", "body": "any"})
 def post_photos():
     return service.post_photos_response()
 
@@ -33,6 +33,7 @@ def get_photos_persons():
 
 # 画像から人を切り抜いてURLを返す
 @api.post("/photos/persons")
+@required_field(required_header={"Content-Type": "application/json"}, required_body={"key": "any"})
 def post_photos_persons():
     return service.post_photos_persons_response()
 
