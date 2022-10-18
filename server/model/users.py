@@ -13,6 +13,13 @@ class Users(flask_login.UserMixin, db.Model):
         self.id = user_id
         self.user_name = user_name
 
+    def check_user_id(user_id) -> bool:
+        user = db.session.query(Users).filter(Users.id == user_id).one_or_none()
+        if user is not None:
+            return True
+        else:
+            return False
+
 
 class UserLogin(db.Model):  # passwordがリークしないため一応分割
     __tablename__ = "user_login"

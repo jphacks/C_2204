@@ -1,6 +1,6 @@
 import service
 
-from flask import Blueprint
+from flask import Blueprint, request
 from controller.decorated_required import required_field
 
 api = Blueprint("api", __name__)
@@ -10,6 +10,12 @@ api = Blueprint("api", __name__)
 @api.get("/health")
 def health():
     return service.ok_response()
+
+
+@api.post("/user/check")
+@required_field(required_header={"Content-Type": "application/json"}, required_body={"user_id": "any"})
+def post_user_check():
+    return service.user.check(user_id=request.form.get("user_id"))
 
 
 # s3へのアップロード用署名付きURL
