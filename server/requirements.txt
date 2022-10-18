@@ -1,5 +1,6 @@
 mysqlclient
 flask
+flask_login
 flask-sqlalchemy
 python-dotenv
 boto3
