@@ -7,6 +7,108 @@ tags:
   - name: user
     description: Operations about user
 paths:
+  /user/check:
+    post:
+      tags:
+        - "user"
+      summary: 入力されたユーザが存在しているか確認
+      description: 入力されたユーザが存在しているか確認
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user_id:
+                  type: string
+                  description: 確認したいユーザーID
+                  example: jphacks
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  exist:
+                    type: boolean
+                    description: すでに存在している場合
+                    example: true
+                  user_name:
+                    type: string
+                    description: 表示名
+                    example: jphacks!
+
+  /user/signup:
+    post:
+      tags:
+        - "user"
+      summary: 新規ユーザの登録
+      description: 新規にユーザを作成する
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user_id:
+                  type: string
+                  description: ユニークなユーザーID
+                  example: jphacks
+                user_name:
+                  type: string
+                  description: 表示名
+                  example: jphacks!
+                password_hash:
+                  type: string
+                  description: ハッシュ化されたパスワード
+                  example: ハッシュ化されたパスワード
+      responses:
+        "201":
+          description: successful operation
+        "500":
+          description: failure operation
+
+  /user/signin:
+    post:
+      tags:
+        - "user"
+      summary: ログイン
+      description: ログイン
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user_id:
+                  type: string
+                  description: ユニークなユーザーID
+                  example: jphacks
+                password_hash:
+                  type: string
+                  description: ハッシュ化されたパスワード
+                  example: ハッシュ化されたパスワード
+      responses:
+        "200":
+          description: successful operation
+        "401":
+          description: Unauthorized
+
+  /user/logout:
+    get:
+      tags:
+        - "user"
+      summary: ログアウト
+      description: ログアウト
+      responses:
+        "200":
+          description: successful operation
+
   /photos/presigned-url:
     get:
       tags:
@@ -102,6 +204,31 @@ paths:
               schema:
                 $ref: "#/components/schemas/Photo"
 
+  /photos/like:
+    post:
+      tags:
+        - photo
+      summary: いいねを押す/取り消す
+      description: いいねを押す/取り消す
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                photos_id:
+                  type: string
+                  description: 投稿のID
+                  example: photos_id
+                likes:
+                  type: boolean
+                  description: いいねが押された->True
+                  example: true
+      responses:
+        "200":
+          description: Successful operation
+
 components:
   schemas:
     CropedPersonURL:
@@ -130,6 +257,10 @@ components:
       type: object
       description: 捏造された思い出
       properties:
+        photos_id:
+          type: string
+          description: 投稿のID
+          example: photos_id
         image:
           $ref: "#/components/schemas/CropedPersonURL"
         user:
@@ -146,3 +277,7 @@ components:
           type: integer
           description: いいね数 とりあえず0
           example: 0
+        already_like:
+          type: boolean
+          description: 自身がいいねをおしているか
+          example: false
