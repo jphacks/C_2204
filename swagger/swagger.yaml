@@ -7,6 +7,47 @@ tags:
   - name: user
     description: Operations about user
 paths:
+  /photos/presigned-url:
+    get:
+      tags:
+        - photo
+      summary: s3へのアップロード用署名付きURL
+      description: "presigned urlとkeyを返す 参考: https://docs.aws.amazon.com/ja_jp/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html"
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PresignedURL"
+  /photos/persons:
+    get:
+      tags:
+        - photo
+      summary: 切り抜かれた人画像一覧
+      description: 人の画像URLを返す
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/CropedPersonURL"
+  /photos/crop:
+    post:
+      tags:
+        - photo
+      summary: 画像から人を切り抜いてURLを返す
+      description: keyを指定するとその画像を切り抜く
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CropedPersonURL"
   /photos:
     get:
       tags:
@@ -49,48 +90,6 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Photo"
-
-  /photos/persons:
-    get:
-      tags:
-        - photo
-      summary: 切り抜かれた人画像
-      description: 人の画像URLを返す
-      responses:
-        "200":
-          description: Successful operation
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/CropedPersonURL"
-    post:
-      tags:
-        - photo
-      summary: 画像から人を切り抜いてURLを返す
-      description: keyを指定するとその画像を切り抜く
-      responses:
-        "201":
-          description: Successful operation
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/CropedPersonURL"
-
-  /photos/presigned-url:
-    get:
-      tags:
-        - photo
-      summary: s3へのアップロード用署名付きURL
-      description: "presigned urlとkeyを返す 参考: https://docs.aws.amazon.com/ja_jp/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html"
-      responses:
-        "200":
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/PresignedURL"
 
 components:
   schemas:
