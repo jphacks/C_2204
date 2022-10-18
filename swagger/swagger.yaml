@@ -41,6 +41,17 @@ paths:
         - photo
       summary: 画像から人を切り抜いてURLを返す
       description: keyを指定するとその画像を切り抜く
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                key:
+                  type: string
+                  description: s3オブジェクトのkey
+                  example: key-name
       responses:
         "200":
           description: Successful operation
@@ -78,7 +89,7 @@ paths:
                 key:
                   type: string
                   description: s3オブジェクトのkey
-                  example: key
+                  example: key-name
                 body:
                   type: string
                   description: 投稿内容
