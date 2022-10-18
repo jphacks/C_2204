@@ -20,7 +20,7 @@ def required_field(required_header: dict = {}, required_body: dict = {}):
             for k, v in required_header.items():
                 rh = request.headers.get(k)
                 if rh is None or (v != "any" and rh != v):
-                    return service.bad_request_response()
+                    return service.bad_request_response(f"header {k}")
 
             # ボディに必須フィールドが存在するか確認
             if any(required_body):
@@ -29,10 +29,10 @@ def required_field(required_header: dict = {}, required_body: dict = {}):
                     for k, v in required_body.items():
                         rh = request.form.get(k)
                         if rh is None or (v != "any" and rh != v):
-                            return service.bad_request_response()
+                            return service.bad_request_response(f"body {k}")
 
                 else:
-                    return service.bad_request_response()
+                    return service.bad_request_response("header Content-Type")
 
             return func(*args, **kwargs)
 
