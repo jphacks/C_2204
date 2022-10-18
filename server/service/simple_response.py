@@ -1,6 +1,10 @@
 from flask import make_response, jsonify
 
 
+def ok_response():
+    return make_response(jsonify({"code": 200, "status": "ok"}))
+
+
 def bad_request_response():
     # 400 Bad Request
     return make_response(jsonify({"code": 400, "status": "Bad Request"})), 400
