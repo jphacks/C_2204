@@ -13,3 +13,6 @@ class NbgImg(db.Model):  # Non-background Image
         self.img_key = img_key
         self.created_user = created_user
         self.created_at = datetime.datetime.now()
+
+    def get_all() -> list:
+        return db.session.query(NbgImg).all()

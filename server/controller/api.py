@@ -63,6 +63,19 @@ def get_photos_presigned_url():
     return service.img.get_presigned_url()
 
 
+# 切り抜かれた人画像一覧
+@api.get("/photos/persons")
+def get_photos_persons():
+    return service.img.get_persons()
+
+
+# 画像から人を切り抜いてURLを返す
+@api.post("/photos/crop")
+@required_field(required_header={"Content-Type": "application/json"}, required_body={"key": "any"})
+def post_photos_crop():
+    return service.post_photos_crop_response()
+
+
 # 作成された画像一覧
 @api.get("/photos")
 def get_photos():
@@ -74,16 +87,3 @@ def get_photos():
 @required_field(required_header={"Content-Type": "application/json"}, required_body={"key": "any", "body": "any"})
 def post_photos():
     return service.post_photos_response()
-
-
-# 切り抜かれた人画像一覧
-@api.get("/photos/persons")
-def get_photos_persons():
-    return service.get_photos_persons_response()
-
-
-# 画像から人を切り抜いてURLを返す
-@api.post("/photos/crop")
-@required_field(required_header={"Content-Type": "application/json"}, required_body={"key": "any"})
-def post_photos_crop():
-    return service.post_photos_crop_response()

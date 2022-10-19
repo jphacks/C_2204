@@ -3,6 +3,7 @@ import settings as s
 import uuid
 
 from flask import make_response, jsonify
+from model import NbgImg
 
 
 def get_presigned_url():
@@ -17,3 +18,19 @@ def get_presigned_url():
         HttpMethod="PUT",
     )
     return make_response(jsonify(key=key, url=url))
+
+
+def __to_json(person):
+    return dict(
+        {
+            "key": person.img_key,
+            "url": f"https://{s.AWS_S3_BUCKET_NAME}.s3.ap-northeast-1.amazonaws.com/nbg_img/{person.img_key}",
+            "created_user": person.created_user,
+        }
+    )
+
+
+def get_persons():
+    persons = NbgImg.get_all()
+    persons_json = list(map(__to_json, persons))
+    return make_response(jsonify(persons_json))
