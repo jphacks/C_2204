@@ -14,5 +14,13 @@ class NbgImg(db.Model):  # Non-background Image
         self.created_user = created_user
         self.created_at = datetime.datetime.now()
 
+    def regist(self) -> bool:
+        try:
+            db.session.add(self)
+            db.session.commit()
+        except Exception:
+            return False
+        return True
+
     def get_all() -> list:
         return db.session.query(NbgImg).all()

@@ -73,7 +73,13 @@ def get_photos_persons():
 @api.post("/photos/crop")
 @required_field(required_header={"Content-Type": "application/json"}, required_body={"key": "any"})
 def post_photos_crop():
-    return service.post_photos_crop_response()
+    request_body = request.json
+    return service.img.create_nbg_img(
+        img_key=request_body["key"],
+    )
+
+
+"""↑↑↑↑↑ここまで完了↑↑↑↑↑"""
 
 
 # 作成された画像一覧
