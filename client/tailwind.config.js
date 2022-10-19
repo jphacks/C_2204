@@ -2,7 +2,13 @@
 module.exports = {
   purge: {
     content: ['./src/**/*.{js,jsx,ts,tsx}'],
-    safelist: ['bg-mainBrand', 'hover:bg-mainBrandHover', 'text-lightShades'],
+    safelist: [
+      'bg-mainBrand',
+      'hover:bg-mainBrandHover',
+      'text-lightShades',
+      'bg-lightAccent',
+      'bg-lightBrand',
+    ],
   },
   content: [
     './src/pages/**/*.{js,ts,jsx,tsx}',
@@ -15,11 +21,15 @@ module.exports = {
         current: 'currentColor',
         lightShades: '#F9F9FB',
         lightAccent: '#DF7157',
+        lightAccentHover: '#ac5743',
+        lightBrand: '#b4ccd2',
+        lightBrandHover: '#abc2c7',
         mainBrand: '#D55769',
         mainBrandHover: '#a2424f',
         darkAccent: '#EA9D8A',
         darkAccentHover: '#b67a6b',
         darkShades: '#45859B',
+        darkShadesHover: '#2e5967',
         darkText: '#333333',
         footerSVG: '#646464',
         twitter: '#1D9BF0',

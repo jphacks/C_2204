@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import { Button } from 'components/atoms/Button'
+import { RoundedLink } from 'components/atoms/Link'
 import type { NextPage } from 'next'
 
 const Home: NextPage = () => {
@@ -37,14 +37,14 @@ const Home: NextPage = () => {
             <p>捏造した思い出をみんなと共有しよう</p>
           </div>
           <div className="flex justify-center lg:justify-start mx-auto mt-40 lg:mt-0 lg:ml-[25%] lg:mb-0">
-            <Button
-              color="mainBrand"
-              textColor="lightShades"
-              hoverColor="mainBrandHover"
-              onClick={() => ''}
+            <RoundedLink
+              color="bg-mainBrand"
+              textColor="text-lightShades"
+              hoverColor="hover:bg-mainBrandHover"
+              href="/memory"
             >
               思い出を作る
-            </Button>
+            </RoundedLink>
           </div>
         </div>
       </div>
