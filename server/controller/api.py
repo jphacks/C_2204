@@ -16,7 +16,8 @@ def health():
 @api.post("/user/check")
 @required_field(required_header={"Content-Type": "application/json"}, required_body={"user_id": "any"})
 def post_user_check():
-    return service.user.check(user_id=request.form.get("user_id"))
+    request_body = request.json
+    return service.user.check(user_id=request_body["user_id"])
 
 
 # 新規にユーザを作成
@@ -26,10 +27,11 @@ def post_user_check():
     required_body={"user_id": "any", "user_name": "any", "password_hash": "any"},
 )
 def post_user_signup():
-    return service.user.create_user(
-        user_id=request.form.get("user_id"),
-        user_name=request.form.get("user_name"),
-        password_hash=request.form.get("password_hash"),
+    request_body = request.json
+    return service.user.signup(
+        user_id=request_body["user_id"],
+        user_name=request_body["user_name"],
+        password_hash=request_body["password_hash"],
     )
 
 
