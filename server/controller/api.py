@@ -80,6 +80,12 @@ def post_photos_crop():
     )
 
 
+# s3へのアップロード用署名付きURL
+@api.get("/post/presigned-url")
+def get_post_presigned_url():
+    return service.aws.get_presigned_url(folder="post_img")
+
+
 """↑↑↑↑↑ここまで完了↑↑↑↑↑"""
 
 
