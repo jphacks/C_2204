@@ -5,7 +5,7 @@ import uuid
 from flask import make_response, jsonify
 
 
-def get_photos_presigned_url_response():
+def get_presigned_url():
     # TODO:確率は低いが既に使われているファイル名か確認する必要あり
     key = f"{uuid.uuid4()}.png"
     url = boto3.client(

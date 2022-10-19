@@ -60,7 +60,7 @@ def get_user_signout():
 # s3へのアップロード用署名付きURL
 @api.get("/photos/presigned-url")
 def get_photos_presigned_url():
-    return service.get_photos_presigned_url_response()
+    return service.img.get_presigned_url()
 
 
 # 作成された画像一覧
