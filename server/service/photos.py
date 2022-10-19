@@ -27,7 +27,6 @@ def create_nbg_photo(photo_key: str):
     success = True  # 画像作成に成功した場合
 
     if success:
-        print(flask_login.current_user.get_id())
         new_nbg_photo = NbgPhotos(photo_key=str(photo_key), created_user=str(flask_login.current_user.id))
         if new_nbg_photo.regist():
             return make_response(jsonify(__to_json(new_nbg_photo)))
