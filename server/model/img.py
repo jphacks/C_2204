@@ -13,6 +13,3 @@ class NbgImg(db.Model):  # Non-background Image
         self.img_key = img_key
         self.created_user = created_user
         self.created_at = datetime.datetime.now()
-
-
-db.create_all()

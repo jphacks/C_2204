@@ -27,6 +27,3 @@ class PhotoLikes(db.Model):  # 誰がどの投稿にいいねをしたか管理
         self.photos_id = photos_id
         self.user_id = user_id
         self.like = like
-
-
-db.create_all()

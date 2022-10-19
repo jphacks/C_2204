@@ -33,9 +33,6 @@ class UserLogin(db.Model):  # passwordがリークしないため一応分割
         self.last_login = datetime.datetime.now()
 
 
-db.create_all()
-
-
 def create_user(user_id, user_name, password_hash) -> bool:
     used_user_id = True if Users.query.filter_by(id=user_id).one_or_none() is not None else False
     if used_user_id:

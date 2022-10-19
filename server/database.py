@@ -10,3 +10,4 @@ def setup_db(app):
     ] = f"mysql://{s.MYSQL_USER}:{s.MYSQL_PASSWORD}@{s.MYSQL_HOST}:{s.MYSQL_PORT}/{s.MYSQL_DATABASE}?charset=utf8"
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
     db.init_app(app)
+    db.create_all(app=app)
