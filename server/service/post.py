@@ -35,3 +35,11 @@ def post_posts(post_key: str, body: str):
     if new_post.regist():
         return make_response(jsonify(__to_json(new_post)))
     return service.internal_server_error_response()
+
+
+def change_like(post_key: str, like: bool):
+    success = PostLikes.change_like(post_key=post_key, user_id=flask_login.current_user.id, like=like)
+    if success:
+        return service.ok_response()
+    else:
+        return service.internal_server_error_response()

@@ -51,3 +51,31 @@ class PostLikes(db.Model):  # 誰がどの投稿にいいねをしたか管理
             return False
         else:
             return user_like.like
+
+    def change_like(post_key, user_id, like) -> bool:
+        user_like = (
+            db.session.query(PostLikes)
+            .filter(PostLikes.post_key == post_key, PostLikes.user_id == user_id)
+            .one_or_none()
+        )
+        post = db.session.query(Posts).filter(Posts.post_key == post_key).one()
+        if user_like is None:
+            user_like = PostLikes(post_key=str(post_key), user_id=str(user_id), like=like)
+            if like:
+                post.likes += 1
+            else:
+                post.likes -= 1
+        else:
+            if not user_like.like and like:
+                post.likes += 1
+            elif user_like.like and not like:
+                post.likes -= 1
+            user_like.like = like
+
+        try:
+            db.session.add(user_like)
+            db.session.add(post)
+            db.session.commit()
+        except Exception:
+            return False
+        return True

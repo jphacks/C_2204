@@ -99,3 +99,12 @@ def get_post():
 def post_post():
     request_body = request.json
     return service.post.post_posts(post_key=request_body["key"], body=request_body["body"])
+
+
+# いいねを押す/取り消す
+@api.post("/post/like")
+@flask_login.login_required
+@required_field(required_header={"Content-Type": "application/json"}, required_body={"key": "any", "like": "any"})
+def post_post_like():
+    request_body = request.json
+    return service.post.change_like(post_key=request_body["key"], like=request_body["like"])
