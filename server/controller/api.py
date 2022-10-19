@@ -9,7 +9,6 @@ api = Blueprint("api", __name__)
 
 # ヘルスチェック
 @api.get("/health")
-@flask_login.login_required
 def health():
     return service.ok_response()
 
@@ -53,6 +52,7 @@ def post_user_signin():
 
 # signout
 @api.get("/user/signout")
+@flask_login.login_required
 def get_user_signout():
     return service.user.signout()
 
@@ -60,13 +60,13 @@ def get_user_signout():
 # s3へのアップロード用署名付きURL
 @api.get("/photos/presigned-url")
 def get_photos_presigned_url():
-    return service.img.get_presigned_url()
+    return service.aws.get_presigned_url(folder="up_img")
 
 
 # 切り抜かれた人画像一覧
 @api.get("/photos/persons")
 def get_photos_persons():
-    return service.img.get_persons()
+    return service.photos.get_photos()
 
 
 # 画像から人を切り抜いてURLを返す
@@ -74,8 +74,8 @@ def get_photos_persons():
 @required_field(required_header={"Content-Type": "application/json"}, required_body={"key": "any"})
 def post_photos_crop():
     request_body = request.json
-    return service.img.create_nbg_img(
-        img_key=request_body["key"],
+    return service.photos.create_nbg_photo(
+        photo_key=request_body["key"],
     )
 
 
@@ -85,7 +85,7 @@ def post_photos_crop():
 # 作成された画像一覧
 @api.get("/photos")
 def get_photos():
-    return service.get_photos_response()
+    return service.photos.get_photos()
 
 
 # 投稿作成

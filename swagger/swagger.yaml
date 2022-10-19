@@ -109,7 +109,7 @@ paths:
     get:
       tags:
         - photo
-      summary: s3へのアップロード用署名付きURL
+      summary: crop用のアップロード先
       description: "presigned urlとkeyを返す 参考: https://docs.aws.amazon.com/ja_jp/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html"
       responses:
         "200":
@@ -157,10 +157,24 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/CropedPersonURL"
-  /photos:
+
+  /post/presigned-url:
     get:
       tags:
-        - photo
+        - post
+      summary: アプリで作成した画像の保存先
+      description: "presigned urlとkeyを返す 参考: https://docs.aws.amazon.com/ja_jp/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html"
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PresignedURL"
+  /post:
+    get:
+      tags:
+        - post
       summary: 作成された画像一覧
       description: 捏造思い出の一覧を返す
       responses:
@@ -174,7 +188,7 @@ paths:
                   $ref: "#/components/schemas/Photo"
     post:
       tags:
-        - photo
+        - post
       summary: 投稿作成
       description: hoge
       requestBody:
@@ -200,10 +214,10 @@ paths:
               schema:
                 $ref: "#/components/schemas/Photo"
 
-  /photos/like:
+  /post/like:
     post:
       tags:
-        - photo
+        - post
       summary: いいねを押す/取り消す
       description: いいねを押す/取り消す
       requestBody:

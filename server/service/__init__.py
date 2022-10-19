@@ -5,6 +5,7 @@ from service.simple_response import (  # noqa
     created_response,
     unauthorized_response,
 )
-from service import img  # noqa
+from service import aws  # noqa
+from service import post  # noqa
 from service import photos  # noqa
 from service import user  # noqa
