@@ -4,3 +4,4 @@ flask_login
 flask-sqlalchemy
 python-dotenv
 boto3
+rembg

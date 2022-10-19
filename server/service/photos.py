@@ -1,6 +1,7 @@
 import flask_login
 import service
 import settings as s
+import ai
 
 from flask import make_response, jsonify
 from model import NbgPhotos
@@ -23,8 +24,7 @@ def get_photos():
 
 
 def create_nbg_photo(photo_key: str):
-    # TODO:ここに画像を切り抜く処理を書く
-    success = True  # 画像作成に成功した場合
+    success = ai.remove_bg(photo_key=photo_key)  # 画像作成に成功した場合
 
     if success:
         new_nbg_photo = NbgPhotos(photo_key=str(photo_key), created_user=str(flask_login.current_user.id))

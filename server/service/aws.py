@@ -18,3 +18,8 @@ def get_presigned_url(folder: str):
         HttpMethod="PUT",
     )
     return make_response(jsonify(key=key, url=url))
+
+
+# TODO:S3にアップロードする処理
+def upload_photo(img):
+    return True
