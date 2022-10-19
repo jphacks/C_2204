@@ -8,4 +8,4 @@ def post_photos_crop_response():
     if post_ok:
         return make_response(jsonify(code=200))
     else:
-        return service.internal_server_error_response
+        return service.internal_server_error_response()
