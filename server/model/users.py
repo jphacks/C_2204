@@ -9,12 +9,15 @@ class Users(flask_login.UserMixin, db.Model):
     id = db.Column(db.String(225), nullable=False, primary_key=True)
     user_name = db.Column(db.String(225), nullable=False)  # 表示名
 
-    def __init__(self, user_id, user_name):
+    def __init__(self, user_id: str, user_name: str):
         self.id = user_id
         self.user_name = user_name
 
-    def check_user_id(user_id) -> bool:
-        user = db.session.query(Users).filter(Users.id == user_id).one_or_none()
+    def get_user(user_id: str):
+        return db.session.query(Users).filter(Users.id == user_id).one_or_none()
+
+    def check_user_id(user_id: str) -> bool:
+        user = Users.get_user(user_id=user_id)
         if user is not None:
             return True
         else:
@@ -32,8 +35,20 @@ class UserLogin(db.Model):  # passwordがリークしないため一応分割
         self.password_hash = password_hash
         self.last_login = datetime.datetime.now()
 
+    def authentication(user_id: str, password_hash: str) -> bool:
+        user = (
+            db.session.query(UserLogin)
+            .filter(UserLogin.user_id == user_id, UserLogin.password_hash == password_hash)
+            .one_or_none()
+        )
 
-def create_user(user_id, user_name, password_hash) -> bool:
+        if user is None:
+            return False
+        else:
+            return True
+
+
+def create_user(user_id: str, user_name: str, password_hash: str) -> bool:
     used_user_id = True if Users.query.filter_by(id=user_id).one_or_none() is not None else False
     if used_user_id:
         return False

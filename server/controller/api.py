@@ -35,6 +35,26 @@ def post_user_signup():
     )
 
 
+# signin
+@api.post("/user/signin")
+@required_field(
+    required_header={"Content-Type": "application/json"},
+    required_body={"user_id": "any", "password_hash": "any"},
+)
+def post_user_signin():
+    request_body = request.json
+    return service.user.signin(
+        user_id=request_body["user_id"],
+        password_hash=request_body["password_hash"],
+    )
+
+
+# signout
+@api.get("/user/signout")
+def get_user_signout():
+    return service.user.signout()
+
+
 # s3へのアップロード用署名付きURL
 @api.get("/photos/presigned-url")
 def get_photos_presigned_url():

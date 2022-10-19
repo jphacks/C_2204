@@ -3,6 +3,7 @@ from service.simple_response import (  # noqa
     bad_request_response,
     internal_server_error_response,
     created_response,
+    unauthorized_response,
 )
 from service.get_photos_service import get_photos_response  # noqa
 from service.post_photos_service import post_photos_response  # noqa

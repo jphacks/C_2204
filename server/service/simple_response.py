@@ -16,6 +16,11 @@ def bad_request_response(message: str = "request"):
     return make_response(jsonify({"code": 400, "status": "Bad Request", "message": f"check {str(message)}"})), 400
 
 
+def unauthorized_response(message: str = "request"):
+    # 401 Unauthorized
+    return make_response(jsonify({"code": 401, "status": "Unauthorized"})), 401
+
+
 def internal_server_error_response():
     # 500 Internal Server Error
     return make_response(jsonify({"code": 500, "status": "Internal Server Error"})), 500

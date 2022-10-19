@@ -95,7 +95,7 @@ paths:
         "401":
           description: Unauthorized
 
-  /user/logout:
+  /user/signout:
     get:
       tags:
         - "user"
