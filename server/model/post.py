@@ -1,5 +1,4 @@
 import datetime
-import uuid
 
 from database import db
 
@@ -12,12 +11,20 @@ class Posts(db.Model):  # 投稿一覧
     created_user = db.Column(db.String(225), nullable=False)  # UsersのID
     created_at = db.Column(db.DateTime)  # 投稿日
 
-    def __init__(self, body, created_user):
-        self.id = uuid.uuid4()
+    def __init__(self, post_key, body, created_user):
+        self.post_key = post_key
         self.body = body
         self.likes = 0
         self.created_user = created_user
         self.created_at = datetime.datetime.now()
+
+    def regist(self) -> bool:
+        try:
+            db.session.add(self)
+            db.session.commit()
+        except Exception:
+            return False
+        return True
 
     def get_all() -> list:
         return db.session.query(Posts).all()

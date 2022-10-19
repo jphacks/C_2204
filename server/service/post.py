@@ -1,4 +1,5 @@
 import flask_login
+import service
 import settings as s
 
 from flask import make_response, jsonify
@@ -27,3 +28,10 @@ def get_posts():
     posts = Posts.get_all()
     posts_json = list(map(__to_json, posts))
     return make_response(jsonify(posts_json))
+
+
+def post_posts(post_key: str, body: str):
+    new_post = Posts(post_key=post_key, body=body, created_user=flask_login.current_user.id)
+    if new_post.regist():
+        return make_response(jsonify(__to_json(new_post)))
+    return service.internal_server_error_response()

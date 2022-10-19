@@ -92,11 +92,10 @@ def get_post():
     return service.post.get_posts()
 
 
-"""↑↑↑↑↑ここまで完了↑↑↑↑↑"""
-
-
 # 投稿作成
 @api.post("/post")
+@flask_login.login_required
 @required_field(required_header={"Content-Type": "application/json"}, required_body={"key": "any", "body": "any"})
 def post_post():
-    return service.post_photos_response()
+    request_body = request.json
+    return service.post.post_posts(post_key=request_body["key"], body=request_body["body"])
