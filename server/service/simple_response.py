@@ -2,7 +2,13 @@ from flask import make_response, jsonify
 
 
 def ok_response():
-    return make_response(jsonify({"code": 200, "status": "ok"}))
+    # 200 OK
+    return make_response(jsonify({"code": 200, "status": "OK"}))
+
+
+def created_response():
+    # 201 Created
+    return make_response(jsonify({"code": 201, "status": "Created"})), 201
 
 
 def bad_request_response(message: str = "request"):

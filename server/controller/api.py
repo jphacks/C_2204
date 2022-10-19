@@ -26,7 +26,11 @@ def post_user_check():
     required_body={"user_id": "any", "user_name": "any", "password_hash": "any"},
 )
 def post_user_signup():
-    return service.user.signup(user_id=request.form.get("user_id"))
+    return service.user.create_user(
+        user_id=request.form.get("user_id"),
+        user_name=request.form.get("user_name"),
+        password_hash=request.form.get("password_hash"),
+    )
 
 
 # s3へのアップロード用署名付きURL
