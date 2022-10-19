@@ -9,7 +9,7 @@ def check(user_id: str):
 
 
 def signup(user_id, user_name, password_hash):
-    success = create_user(user_id=user_id, user_name=user_name, password_hash=password_hash)
+    success = create_user(user_id=str(user_id), user_name=str(user_name), password_hash=str(password_hash))
     if success:
         return service.created_response()
     else:
