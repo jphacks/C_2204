@@ -86,17 +86,17 @@ def get_post_presigned_url():
     return service.aws.get_presigned_url(folder="post_img")
 
 
+# 作成された画像一覧
+@api.get("/post")
+def get_post():
+    return service.post.get_posts()
+
+
 """↑↑↑↑↑ここまで完了↑↑↑↑↑"""
 
 
-# 作成された画像一覧
-@api.get("/photos")
-def get_photos():
-    return service.photos.get_photos()
-
-
 # 投稿作成
-@api.post("/photos")
+@api.post("/post")
 @required_field(required_header={"Content-Type": "application/json"}, required_body={"key": "any", "body": "any"})
-def post_photos():
+def post_post():
     return service.post_photos_response()

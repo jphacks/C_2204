@@ -267,15 +267,15 @@ components:
       type: object
       description: 捏造された思い出
       properties:
-        photos_id:
-          type: string
-          description: 投稿のID
-          example: photos_id
-        image:
+        photo:
           $ref: "#/components/schemas/CropedPersonURL"
         user:
           type: object
-          description: SNS機能の実装まで空っぽで返す
+          properties:
+            id:
+              example: user_id
+            name:
+              example: user_name
         body:
           type: string
           description: つぶやきの内容
