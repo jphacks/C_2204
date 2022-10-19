@@ -1,3 +1,4 @@
+import flask_login
 import service
 
 from flask import Blueprint, request
@@ -8,6 +9,7 @@ api = Blueprint("api", __name__)
 
 # ヘルスチェック
 @api.get("/health")
+@flask_login.login_required
 def health():
     return service.ok_response()
 
