@@ -7,6 +7,104 @@ tags:
   - name: user
     description: Operations about user
 paths:
+  /user/check:
+    post:
+      tags:
+        - "user"
+      summary: 入力されたユーザが存在しているか確認
+      description: 入力されたユーザが存在しているか確認
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user_id:
+                  type: string
+                  description: 確認したいユーザーID
+                  example: jphacks
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  exist:
+                    type: boolean
+                    description: すでに存在している場合
+                    example: true
+
+  /user/signup:
+    post:
+      tags:
+        - "user"
+      summary: 新規ユーザの登録
+      description: 新規にユーザを作成する
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user_id:
+                  type: string
+                  description: ユニークなユーザーID
+                  example: jphacks
+                user_name:
+                  type: string
+                  description: 表示名
+                  example: jphacks!
+                password_hash:
+                  type: string
+                  description: ハッシュ化されたパスワード
+                  example: ハッシュ化されたパスワード
+      responses:
+        "201":
+          description: successful operation
+        "500":
+          description: failure operation
+
+  /user/signin:
+    post:
+      tags:
+        - "user"
+      summary: ログイン
+      description: ログイン
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user_id:
+                  type: string
+                  description: ユニークなユーザーID
+                  example: jphacks
+                password_hash:
+                  type: string
+                  description: ハッシュ化されたパスワード
+                  example: ハッシュ化されたパスワード
+      responses:
+        "200":
+          description: successful operation
+        "401":
+          description: Unauthorized
+
+  /user/signout:
+    get:
+      tags:
+        - "user"
+      summary: ログアウト
+      description: ログアウト
+      responses:
+        "200":
+          description: successful operation
+
   /photos/presigned-url:
     get:
       tags:
@@ -14,12 +112,12 @@ paths:
       summary: s3へのアップロード用署名付きURL
       description: "presigned urlとkeyを返す 参考: https://docs.aws.amazon.com/ja_jp/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html"
       responses:
-        '200':
+        "200":
           description: successful operation
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PresignedURL'
+                $ref: "#/components/schemas/PresignedURL"
   /photos/persons:
     get:
       tags:
@@ -27,27 +125,38 @@ paths:
       summary: 切り抜かれた人画像一覧
       description: 人の画像URLを返す
       responses:
-        '200':
+        "200":
           description: Successful operation
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/CropedPersonURL'
+                  $ref: "#/components/schemas/CropedPersonURL"
   /photos/crop:
     post:
       tags:
         - photo
       summary: 画像から人を切り抜いてURLを返す
       description: keyを指定するとその画像を切り抜く
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                key:
+                  type: string
+                  description: s3オブジェクトのkey
+                  example: key-name
       responses:
-        '200':
+        "200":
           description: Successful operation
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CropedPersonURL'
+                $ref: "#/components/schemas/CropedPersonURL"
   /photos:
     get:
       tags:
@@ -55,14 +164,14 @@ paths:
       summary: 作成された画像一覧
       description: 捏造思い出の一覧を返す
       responses:
-        '200':
+        "200":
           description: Successful operation
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Photo'
+                  $ref: "#/components/schemas/Photo"
     post:
       tags:
         - photo
@@ -78,18 +187,43 @@ paths:
                 key:
                   type: string
                   description: s3オブジェクトのkey
-                  example: key
+                  example: key-name
                 body:
                   type: string
                   description: 投稿内容
                   example: 友達と夢の国に行ってきた
       responses:
-        '201':
+        "201":
           description: Successful operation
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Photo'
+                $ref: "#/components/schemas/Photo"
+
+  /photos/like:
+    post:
+      tags:
+        - photo
+      summary: いいねを押す/取り消す
+      description: いいねを押す/取り消す
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                photos_id:
+                  type: string
+                  description: 投稿のID
+                  example: photos_id
+                likes:
+                  type: boolean
+                  description: いいねが押された->True
+                  example: true
+      responses:
+        "200":
+          description: Successful operation
 
 components:
   schemas:
@@ -119,8 +253,12 @@ components:
       type: object
       description: 捏造された思い出
       properties:
+        photos_id:
+          type: string
+          description: 投稿のID
+          example: photos_id
         image:
-          $ref: '#/components/schemas/CropedPersonURL'
+          $ref: "#/components/schemas/CropedPersonURL"
         user:
           type: object
           description: SNS機能の実装まで空っぽで返す
@@ -135,3 +273,7 @@ components:
           type: integer
           description: いいね数 とりあえず0
           example: 0
+        already_like:
+          type: boolean
+          description: 自身がいいねをおしているか
+          example: false

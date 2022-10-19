@@ -1,1 +1,1 @@
-from controller.api import api
+from controller.api import api  # noqa

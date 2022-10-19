@@ -27,8 +27,8 @@ def required_field(required_header: dict = {}, required_body: dict = {}):
                 # コンテンツタイプがapplication/jsonでない場合エラー
                 if request.headers.get("Content-Type") == "application/json":
                     for k, v in required_body.items():
-                        rh = request.form.get(k)
-                        if rh is None or (v != "any" and rh != v):
+                        rj = request.json
+                        if (k not in rj.keys()) or (v != "any" and rj[k] != v):
                             return service.bad_request_response(f"body {k}")
 
                 else:

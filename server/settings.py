@@ -15,7 +15,9 @@ try:
     MYSQL_DATABASE = os.getenv("MYSQL_DATABASE")
     MYSQL_USER = os.getenv("MYSQL_USER")
     MYSQL_PASSWORD = os.getenv("MYSQL_PASSWORD")
-    MYSQL_ROOT_PASSWORD = os.getenv("MYSQL_ROOT_PASSWORD")
+    AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID")
+    AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY")
+    AWS_S3_BUCKET_NAME = os.getenv("AWS_S3_BUCKET_NAME")
 
 except KeyError:
     raise "環境変数を確認してください."
