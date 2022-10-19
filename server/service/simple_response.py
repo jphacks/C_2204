@@ -13,7 +13,7 @@ def created_response():
 
 def bad_request_response(message: str = "request"):
     # 400 Bad Request
-    return make_response(jsonify({"code": 400, "status": "Bad Request", "message": f"check {str}"})), 400
+    return make_response(jsonify({"code": 400, "status": "Bad Request", "message": f"check {str(message)}"})), 400
 
 
 def internal_server_error_response():
