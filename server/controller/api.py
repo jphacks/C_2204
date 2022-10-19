@@ -12,10 +12,21 @@ def health():
     return service.ok_response()
 
 
+# 入力されたユーザが存在しているか確認
 @api.post("/user/check")
 @required_field(required_header={"Content-Type": "application/json"}, required_body={"user_id": "any"})
 def post_user_check():
     return service.user.check(user_id=request.form.get("user_id"))
+
+
+# 新規にユーザを作成
+@api.post("/user/signup")
+@required_field(
+    required_header={"Content-Type": "application/json"},
+    required_body={"user_id": "any", "user_name": "any", "password_hash": "any"},
+)
+def post_user_signup():
+    return service.user.signup(user_id=request.form.get("user_id"))
 
 
 # s3へのアップロード用署名付きURL
