@@ -3,7 +3,7 @@ import io
 import urllib
 import settings as s
 
-from PIL import Image
+# from PIL import Image
 from rembg.bg import remove
 
 
@@ -16,18 +16,16 @@ def remove_bg(photo_key: str) -> bool:
     # 背景を削除
     result = remove(data)
 
-    # 出力の作成
-    output = Image.open(io.BytesIO(result)).convert("RGBA")
-    # output.show()
-
-    if img_check_filter(output):
+    if img_check_filter(result):
         # TODO:S3にアップデートする用の処理
-        if service.aws.upload_photo(output):
+        if service.aws.upload_photo(img=io.BytesIO(result), key=photo_key):
             # 正常終了
             return True
 
     return False
 
 
-def img_check_filter(img) -> bool:
+def img_check_filter(result) -> bool:
+    # output = Image.open(io.BytesIO(result)).convert("RGBA")
+    # output.show()
     return True
