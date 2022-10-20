@@ -39,4 +39,4 @@ if __name__ == "__main__":
     if s.ENVIRONMENT == "dev":
         app.run(host="0.0.0.0", debug=True, port=s.APP_PORT)
     else:
-        waitress.serve(app, host="0.0.0.0", port=s.APP_PORT)
+        waitress.serve(app, host="0.0.0.0", port=s.APP_PORT, threads=10)
