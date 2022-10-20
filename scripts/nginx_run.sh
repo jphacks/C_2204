@@ -1,2 +1,2 @@
 #!/bin/bash
-/usr/sbin/nginx -c ~/C_2204/scripts/nginx.conf
+/usr/sbin/nginx -c ./nginx.conf
