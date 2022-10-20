@@ -77,8 +77,12 @@ def get_photos_persons():
 @required_field(required_header={"Content-Type": "application/json"}, required_body={"key": "any"})
 def post_photos_crop():
     request_body = request.json
+    shere = False
+    if "share" in request_body.keys:
+        shere = request_body["share"]
     return service.photos.create_nbg_photo(
         photo_key=request_body["key"],
+        share=shere,
     )
 
 

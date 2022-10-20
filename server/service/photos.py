@@ -23,11 +23,11 @@ def get_photos():
     return make_response(jsonify(photos_json))
 
 
-def create_nbg_photo(photo_key: str):
+def create_nbg_photo(photo_key: str, share: bool = False):
     success = ai.remove_bg(photo_key=photo_key)  # 画像作成に成功した場合
 
     if success:
-        new_nbg_photo = NbgPhotos(photo_key=str(photo_key), created_user=str(flask_login.current_user.id))
+        new_nbg_photo = NbgPhotos(photo_key=str(photo_key), share=share, created_user=str(flask_login.current_user.id))
         if new_nbg_photo.regist():
             return make_response(jsonify(__to_json(new_nbg_photo)))
 
