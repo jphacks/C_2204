@@ -8,6 +8,7 @@ from dotenv import load_dotenv
 load_dotenv(join(dirname(__file__), ".env"))
 
 try:
+    DEBUG = os.getenv("DEBUG")
     APP_PORT = os.getenv("APP_PORT")
     APP_SECRET_KEY = os.getenv("APP_SECRET_KEY")
     MYSQL_HOST = os.getenv("MYSQL_HOST")

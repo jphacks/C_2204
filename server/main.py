@@ -2,12 +2,11 @@ import controller
 import flask_login
 import service
 import settings as s
+import waitress
 
 from database import setup_db
 from flask import Flask
 from model import Users
-
-DEBUG = True
 
 
 # appの設定
@@ -37,4 +36,7 @@ app.register_blueprint(controller.api)
 
 if __name__ == "__main__":
     # NOTE:host="0.0.0.0"は外部からアクセスする際に必須
-    app.run(host="0.0.0.0", debug=DEBUG, port=s.APP_PORT)
+    if s.DEBUG:
+        app.run(host="0.0.0.0", debug=True, port=s.APP_PORT)
+    else:
+        waitress.serve(app, host="0.0.0.0", port=s.APP_PORT)
