@@ -14,15 +14,17 @@ def health():
 
 
 # 入力されたユーザが存在しているか確認
-@api.post("/user/check")
-@required_field(required_header={"Content-Type": "application/json"}, required_body={"user_id": "any"})
+@api.get("/users/check")
+@required_field()
 def post_user_check():
-    request_body = request.json
-    return service.user.check(user_id=request_body["user_id"])
+    user_id = request.args.get("user_id")
+    if user_id is None:
+        return service.bad_request_response()
+    return service.user.check(user_id=user_id)
 
 
 # 新規にユーザを作成
-@api.post("/user/signup")
+@api.post("/users/signup")
 @required_field(
     required_header={"Content-Type": "application/json"},
     required_body={"user_id": "any", "user_name": "any", "password_hash": "any"},
@@ -37,7 +39,7 @@ def post_user_signup():
 
 
 # signin
-@api.post("/user/signin")
+@api.post("/users/signin")
 @required_field(
     required_header={"Content-Type": "application/json"},
     required_body={"user_id": "any", "password_hash": "any"},
@@ -51,7 +53,7 @@ def post_user_signin():
 
 
 # signout
-@api.get("/user/signout")
+@api.get("/users/signout")
 @flask_login.login_required
 def get_user_signout():
     return service.user.signout()
@@ -81,19 +83,19 @@ def post_photos_crop():
 
 
 # s3へのアップロード用署名付きURL
-@api.get("/post/presigned-url")
+@api.get("/posts/presigned-url")
 def get_post_presigned_url():
     return service.aws.get_presigned_url(folder="post_img")
 
 
 # 作成された画像一覧
-@api.get("/post")
+@api.get("/posts")
 def get_post():
     return service.post.get_posts()
 
 
 # 投稿作成
-@api.post("/post")
+@api.post("/posts")
 @flask_login.login_required
 @required_field(required_header={"Content-Type": "application/json"}, required_body={"key": "any", "body": "any"})
 def post_post():
@@ -101,10 +103,15 @@ def post_post():
     return service.post.post_posts(post_key=request_body["key"], body=request_body["body"])
 
 
-# いいねを押す/取り消す
-@api.post("/post/like")
+# いいねを押す
+@api.post("/posts/<string:post_id>/like")
 @flask_login.login_required
-@required_field(required_header={"Content-Type": "application/json"}, required_body={"key": "any", "like": "any"})
-def post_post_like():
-    request_body = request.json
-    return service.post.change_like(post_key=request_body["key"], like=request_body["like"])
+def post_post_like(post_id):
+    return service.post.change_like(post_key=post_id, like=True)
+
+
+# いいねを取り消す
+@api.delete("/posts/<string:post_id>/like")
+@flask_login.login_required
+def delete_post_like(post_id):
+    return service.post.change_like(post_key=post_id, like=False)
