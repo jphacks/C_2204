@@ -36,7 +36,7 @@ app.register_blueprint(controller.api)
 
 if __name__ == "__main__":
     # NOTE:host="0.0.0.0"は外部からアクセスする際に必須
-    if s.DEBUG:
+    if s.ENVIRONMENT == "dev":
         app.run(host="0.0.0.0", debug=True, port=s.APP_PORT)
     else:
         waitress.serve(app, host="0.0.0.0", port=s.APP_PORT)
