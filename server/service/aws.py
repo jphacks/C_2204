@@ -25,7 +25,7 @@ def get_presigned_url(folder: str):
     return make_response(jsonify(key=key, url=url))
 
 
-# TODO:S3にアップロードする処理
+# S3にアップロードする処理
 def upload_photo(img, key):
     try:
         __client.upload_fileobj(img, s.AWS_S3_BUCKET_NAME, f"nbg_img/{key}")

@@ -17,7 +17,7 @@ def remove_bg(photo_key: str) -> bool:
     result = remove(data)
 
     if img_check_filter(result):
-        # TODO:S3にアップデートする用の処理
+        # S3にアップデートする用の処理
         if service.aws.upload_photo(img=io.BytesIO(result), key=photo_key):
             # 正常終了
             return True
