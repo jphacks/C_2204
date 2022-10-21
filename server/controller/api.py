@@ -119,7 +119,6 @@ def delete_post_like(post_id):
     return service.post.change_like(post_key=post_id, like=False)
 
 
-"""
 # ヘッダー情報を追加
 @api.after_request
 def after_request(response):
@@ -127,4 +126,3 @@ def after_request(response):
     response.headers.add("Access-Control-Allow-Headers", "*")
     response.headers.add("Access-Control-Allow-Methods", "GET,POST,DELETE")
     return response
-"""
