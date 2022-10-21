@@ -9,16 +9,16 @@ def check(user_id: str):
     return make_response(jsonify({"exist": Users.check_user_id(user_id=user_id)}))
 
 
-def signup(user_id, user_name, password_hash):
-    success = create_user(user_id=str(user_id), user_name=str(user_name), password_hash=str(password_hash))
+def signup(user_id, user_name, password):
+    success = create_user(user_id=str(user_id), user_name=str(user_name), password=str(password))
     if success:
         return service.created_response()
     else:
         return service.internal_server_error_response()
 
 
-def signin(user_id, password_hash):
-    success = UserLogin.authentication(str(user_id), str(password_hash))
+def signin(user_id, password):
+    success = UserLogin.authentication(str(user_id), str(password))
     if success:
         user = Users.get_user(user_id=str(user_id))
         flask_login.login_user(user)
