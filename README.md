@@ -26,46 +26,36 @@
 ## 開発技術
 ### 活用した技術
 #### API・データ
-*
-*
+* [https://www.photo-ac.com/](https://www.photo-ac.com/)から人物画像を利用
+    * 背景を取り除いた画像の作成及び，タイムラインのサンプルデータとして使用
 
 #### フレームワーク・ライブラリ・モジュール
-*
-*
+* Backend ([実装したAPI一覧](https://github.com/jphacks/C_2204/blob/master/swagger/swagger.yaml))
+    * Python
+        * Flask
+        * waitress
+        * rembg
+* Frontend
+* Infrastructure
+    * Nginx
+    * MySQL
+    * Docker
+    * AWS(EC2, ALB, S3, Route53, Certificate Manager)
+        * AWS利用による可用性の向上
 
 #### デバイス
-*
-*
+* server
+    * AWSにて実行
+* client(動作確認済み)
+    * Windows (Chrome, Edge)
+    * Mac (Chrome, Safari)
+    * Android (Chrome)
+    * iOS, iPadOS (Chrome, Safari)
 
 ### 独自技術
 #### ハッカソンで開発した独自機能・技術
-* 独自で開発したものの内容をこちらに記載してください
-* 特に力を入れた部分をファイルリンク、またはcommit_idを記載してください。
-
-#### 製品に取り入れた研究内容（データ・ソフトウェアなど）（※アカデミック部門の場合のみ提出必須）
-*
-*
-
-
----
-
-## ローカルで実行
-```sh
-# 初回のみ
-docker volume create jphacks-db-data
-docker volume create jphacks-minio-data
-# 毎回
-docker compose up --build
-```
-
-[http://localhost:8080](http://localhost:8080)でクライアントサイドに
-[http://localhost:8080/api](http://localhost:8080/api)でapiにアクセスできます
-
-
-## minio
-[http://localhost:9001](http://localhost:9001)でminioのコンソールに入れます
-```
-ID: minioadmin
-Password: minioadmin
-バケット名: jphacks
-```
+* server
+    * 画像を，背景の削除を行ったり，AWS S3で管理する一連のフロー
+* client
+    * 独自で開発したものの内容をこちらに記載してください
+    * 特に力を入れた部分をファイルリンク、またはcommit_idを記載してください。
