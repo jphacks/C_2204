@@ -2,7 +2,7 @@ import service
 import settings as s
 
 from flask import make_response, jsonify
-from model import Posts, PostLikes, Users
+from model import Posts, PostLikes
 
 
 def __to_json(post: Posts):
@@ -12,7 +12,7 @@ def __to_json(post: Posts):
                 "key": post.post_key,
                 "url": f"https://{s.AWS_S3_BUCKET_NAME}.s3.ap-northeast-1.amazonaws.com/post_img/{post.post_key}",
             },
-            "user": {"id": post.created_user, "name": Users.get_user(user_id=post.created_user).user_name},
+            "user": {"id": post.created_user, "name": "dev"},
             "body": post.body,
             "created_at": post.created_at,
             "likes": post.likes,
@@ -29,7 +29,8 @@ def get_posts():
 
 def post_posts(post_key: str, body: str):
     new_post = Posts(post_key=post_key, body=body, created_user="dev")
-    if new_post.regist():
+    success = new_post.regist()
+    if success:
         return make_response(jsonify(__to_json(new_post)))
     return service.internal_server_error_response()
 
