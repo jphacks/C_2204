@@ -124,5 +124,5 @@ def delete_post_like(post_id):
 def after_request(response):
     response.headers.add("Access-Control-Allow-Origin", "*")
     response.headers.add("Access-Control-Allow-Headers", "*")
-    response.headers.add("Access-Control-Allow-Methods", "GET,POST,DELETE,OPTIONS")
+    response.headers.add("Access-Control-Allow-Methods", "*")
     return response
