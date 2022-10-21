@@ -3,7 +3,6 @@ import { faTimesCircle } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Dialog, Transition } from '@headlessui/react'
 import { AxiosContext } from 'context/auth'
-import Link from 'next/link'
 import { Post, Posts } from 'types'
 
 export const UserPost: React.FC<{ post: Post }> = ({ post }) => {

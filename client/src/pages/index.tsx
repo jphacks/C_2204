@@ -1,7 +1,7 @@
 import Image from 'next/image'
+import Link from 'next/link'
 import { RoundedLink } from 'components/atoms/Link'
 import type { NextPage } from 'next'
-import Link from 'next/link'
 
 const Home: NextPage = () => {
   return (
