@@ -3,6 +3,9 @@
 curl -sL https://deb.nodesource.com/setup_16.x | sudo bash -
 
 sudo apt update
+
+sudo timedatectl set-timezone Asia/Tokyo
+
 sudo apt install -y nodejs
 sudo npm install -g yarn
 npm i -g next
