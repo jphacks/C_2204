@@ -6,6 +6,7 @@ import waitress
 
 from database import setup_db
 from flask import Flask
+from flask_cors import CORS
 from model import Users
 
 
@@ -32,6 +33,8 @@ setup_db(app)
 
 # APIのルーティングをロード
 app.register_blueprint(controller.api)
+
+CORS(app, supports_credentials=True)
 
 
 if __name__ == "__main__":
