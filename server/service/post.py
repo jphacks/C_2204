@@ -1,4 +1,3 @@
-import flask_login
 import service
 import settings as s
 
@@ -17,9 +16,7 @@ def __to_json(post: Posts):
             "body": post.body,
             "created_at": post.created_at,
             "likes": post.likes,
-            "already_like": ""
-            if not flask_login.current_user.is_authenticated
-            else PostLikes.get_like(post_key=post.post_key, user_id=flask_login.current_user.id),
+            "already_like": "",
         }
     )
 
@@ -31,14 +28,14 @@ def get_posts():
 
 
 def post_posts(post_key: str, body: str):
-    new_post = Posts(post_key=post_key, body=body, created_user=flask_login.current_user.id)
+    new_post = Posts(post_key=post_key, body=body, created_user="dev")
     if new_post.regist():
         return make_response(jsonify(__to_json(new_post)))
     return service.internal_server_error_response()
 
 
 def change_like(post_key: str, like: bool):
-    success = PostLikes.change_like(post_key=post_key, user_id=flask_login.current_user.id, like=like)
+    success = PostLikes.change_like(post_key=post_key, user_id="dev", like=like)
     if success:
         return service.ok_response()
     else:

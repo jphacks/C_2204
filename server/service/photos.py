@@ -1,4 +1,3 @@
-import flask_login
 import service
 import settings as s
 import ai
@@ -27,7 +26,7 @@ def create_nbg_photo(photo_key: str, share: bool = False):
     success = ai.remove_bg(photo_key=photo_key)  # 画像作成に成功した場合
 
     if success:
-        new_nbg_photo = NbgPhotos(photo_key=str(photo_key), share=share, created_user=str(flask_login.current_user.id))
+        new_nbg_photo = NbgPhotos(photo_key=str(photo_key), share=share, created_user="dev")
         if new_nbg_photo.regist():
             return make_response(jsonify(__to_json(new_nbg_photo)))
 

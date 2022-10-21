@@ -73,7 +73,6 @@ def get_photos_persons():
 
 # 画像から人を切り抜いてURLを返す
 @api.post("/photos/crop")
-@flask_login.login_required
 @required_field(required_header={"Content-Type": "application/json"}, required_body={"key": "any"})
 def post_photos_crop():
     request_body = request.json
@@ -100,7 +99,6 @@ def get_post():
 
 # 投稿作成
 @api.post("/posts")
-@flask_login.login_required
 @required_field(required_header={"Content-Type": "application/json"}, required_body={"key": "any", "body": "any"})
 def post_post():
     request_body = request.json
