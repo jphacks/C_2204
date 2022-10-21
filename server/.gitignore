@@ -136,3 +136,5 @@ dmypy.json
 
 # for secret files
 secret.yaml
+
+*/nohup.out
