@@ -17,7 +17,7 @@ def health():
 @api.get("/users/check")
 @required_field()
 def post_user_check():
-    user_id = request.args.get("user_id")
+    user_id = request.args.get("user-id")
     if user_id is None:
         return service.bad_request_response()
     return service.user.check(user_id=user_id)
@@ -27,14 +27,14 @@ def post_user_check():
 @api.post("/users/signup")
 @required_field(
     required_header={"Content-Type": "application/json"},
-    required_body={"user_id": "any", "user_name": "any", "password_hash": "any"},
+    required_body={"user_id": "any", "user_name": "any", "password": "any"},
 )
 def post_user_signup():
     request_body = request.json
     return service.user.signup(
         user_id=request_body["user_id"],
         user_name=request_body["user_name"],
-        password_hash=request_body["password_hash"],
+        password=request_body["password"],
     )
 
 
@@ -42,13 +42,13 @@ def post_user_signup():
 @api.post("/users/signin")
 @required_field(
     required_header={"Content-Type": "application/json"},
-    required_body={"user_id": "any", "password_hash": "any"},
+    required_body={"user_id": "any", "password": "any"},
 )
 def post_user_signin():
     request_body = request.json
     return service.user.signin(
         user_id=request_body["user_id"],
-        password_hash=request_body["password_hash"],
+        password=request_body["password"],
     )
 
 
@@ -73,16 +73,15 @@ def get_photos_persons():
 
 # 画像から人を切り抜いてURLを返す
 @api.post("/photos/crop")
-@flask_login.login_required
 @required_field(required_header={"Content-Type": "application/json"}, required_body={"key": "any"})
 def post_photos_crop():
     request_body = request.json
-    shere = False
-    if "share" in request_body.keys:
-        shere = request_body["share"]
+    share = False
+    if "share" in request_body:
+        share = request_body["share"]
     return service.photos.create_nbg_photo(
         photo_key=request_body["key"],
-        share=shere,
+        share=share,
     )
 
 
@@ -100,7 +99,6 @@ def get_post():
 
 # 投稿作成
 @api.post("/posts")
-@flask_login.login_required
 @required_field(required_header={"Content-Type": "application/json"}, required_body={"key": "any", "body": "any"})
 def post_post():
     request_body = request.json
@@ -119,3 +117,12 @@ def post_post_like(post_id):
 @flask_login.login_required
 def delete_post_like(post_id):
     return service.post.change_like(post_key=post_id, like=False)
+
+
+# ヘッダー情報を追加
+@api.after_request
+def after_request(response):
+    response.headers.add("Access-Control-Allow-Origin", "*")
+    response.headers.add("Access-Control-Allow-Headers", "*")
+    response.headers.add("Access-Control-Allow-Methods", "*")
+    return response

@@ -2,14 +2,14 @@ import boto3
 import uuid
 import settings as s
 
-
+from botocore.client import Config
 from flask import make_response, jsonify
 
 __client = boto3.client(
     "s3",
     aws_access_key_id=s.AWS_ACCESS_KEY_ID,
     aws_secret_access_key=s.AWS_SECRET_ACCESS_KEY,
-    region_name="ap-northeast-1",
+    config=Config(signature_version="s3v4", region_name="ap-northeast-1"),
 )
 
 
@@ -25,7 +25,7 @@ def get_presigned_url(folder: str):
     return make_response(jsonify(key=key, url=url))
 
 
-# TODO:S3にアップロードする処理
+# S3にアップロードする処理
 def upload_photo(img, key):
     try:
         __client.upload_fileobj(img, s.AWS_S3_BUCKET_NAME, f"nbg_img/{key}")
