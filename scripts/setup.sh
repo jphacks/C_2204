@@ -16,4 +16,4 @@ sudo apt install python3-pip -y
 git clone https://github.com/jphacks/C_2204.git
 
 echo "ユーザとスキーマの作成"
-echo "スクリプトに実行権限を与える"
+echo "環境変数の設定"
