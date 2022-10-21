@@ -4,6 +4,11 @@ import config from '../config'
 
 export const axiosConfig: AxiosRequestConfig = {
   baseURL: config.API_BASE_URL,
+  headers: {
+    'Content-Type': 'application/json',
+    'Access-Control-Allow-Origin': '*',
+  },
+  // withCredentials: true,
 }
 
 export type TAxiosStatus = 'initializing' | 'pending' | 'guest' | 'loggedin'
@@ -17,7 +22,7 @@ export interface IAxiosContext {
   checkAuthKeyValid: () => boolean
 }
 
-const AxiosContext = createContext<IAxiosContext>({
+export const AxiosContext = createContext<IAxiosContext>({
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   setAuthorizationKey: () => {},
   status: 'pending',

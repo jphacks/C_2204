@@ -54,7 +54,7 @@ const CreateMemory: NextPage = () => {
               color="bg-darkShades"
               hoverColor="hover:bg-darkShadesHover"
               textColor="text-lightShades"
-              href="/memory/join"
+              href="/memory/into"
             >
               人の思い出に自分を追加
             </SmallRoundedLink>
