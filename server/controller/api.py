@@ -17,7 +17,7 @@ def health():
 @api.get("/users/check")
 @required_field()
 def post_user_check():
-    user_id = request.args.get("user_id")
+    user_id = request.args.get("user-id")
     if user_id is None:
         return service.bad_request_response()
     return service.user.check(user_id=user_id)

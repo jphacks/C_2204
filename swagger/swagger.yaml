@@ -11,7 +11,7 @@ paths:
       summary: ユーザ確認
       description: 入力中のユーザがすでに使用されているか確認
       parameters:
-        - name: "user_id"
+        - name: "user-id"
           in: "query"
           description: "作成中のユーザID"
           required: true
