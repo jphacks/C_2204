@@ -1,6 +1,7 @@
+import ai
+import random
 import service
 import settings as s
-import ai
 
 from flask import make_response, jsonify
 from model import NbgPhotos
@@ -18,7 +19,7 @@ def __to_json(photo: NbgPhotos):
 
 def get_photos():
     photos = NbgPhotos.get_all()
-    photos_json = list(map(__to_json, photos))
+    photos_json = random.shuffle(list(map(__to_json, photos)))
     return make_response(jsonify(photos_json))
 
 
