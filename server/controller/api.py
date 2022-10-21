@@ -119,3 +119,9 @@ def post_post_like(post_id):
 @flask_login.login_required
 def delete_post_like(post_id):
     return service.post.change_like(post_key=post_id, like=False)
+
+
+@api.after_request
+def after_request(response):
+    response.headers.add("Access-Control-Allow-Origin", "*")
+    return response
