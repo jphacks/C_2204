@@ -27,14 +27,14 @@ def post_user_check():
 @api.post("/users/signup")
 @required_field(
     required_header={"Content-Type": "application/json"},
-    required_body={"user_id": "any", "user_name": "any", "password_hash": "any"},
+    required_body={"user_id": "any", "user_name": "any", "password": "any"},
 )
 def post_user_signup():
     request_body = request.json
     return service.user.signup(
         user_id=request_body["user_id"],
         user_name=request_body["user_name"],
-        password_hash=request_body["password_hash"],
+        password=request_body["password"],
     )
 
 
@@ -42,13 +42,13 @@ def post_user_signup():
 @api.post("/users/signin")
 @required_field(
     required_header={"Content-Type": "application/json"},
-    required_body={"user_id": "any", "password_hash": "any"},
+    required_body={"user_id": "any", "password": "any"},
 )
 def post_user_signin():
     request_body = request.json
     return service.user.signin(
         user_id=request_body["user_id"],
-        password_hash=request_body["password_hash"],
+        password=request_body["password"],
     )
 
 

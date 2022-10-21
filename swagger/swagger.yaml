@@ -49,7 +49,7 @@ paths:
                   type: string
                   description: 表示名
                   example: jphacks!
-                password_hash:
+                password:
                   type: string
                   description: ハッシュ化されたパスワード
                   example: ハッシュ化されたパスワード
@@ -76,7 +76,7 @@ paths:
                   type: string
                   description: ユニークなユーザーID
                   example: jphacks
-                password_hash:
+                password:
                   type: string
                   description: ハッシュ化されたパスワード
                   example: ハッシュ化されたパスワード
