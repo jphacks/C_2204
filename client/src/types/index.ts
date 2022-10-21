@@ -18,7 +18,7 @@ export interface User {
   name: string
 }
 
-export interface post {
+export interface Post {
   photo: ImageUrl
   user: User
   body: string
@@ -27,11 +27,11 @@ export interface post {
   already_like: boolean
 }
 
-export type Posts = post[]
+export type Posts = Post[]
 
 export interface PostRequest {
   key: string
   body: string
 }
 
-export type PostResponse = post
+export type PostsResponse = Posts

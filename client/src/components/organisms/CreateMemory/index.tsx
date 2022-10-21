@@ -166,8 +166,10 @@ const CreateMemory: React.FC<ICreateMemoryProps> = ({ url }) => {
             onMouseDown={checkDeselect}
             onTouchStart={checkDeselect}
           >
-            <Layer ref={layerRef}>
+            <Layer key={'background'}>
               <RKImage image={backgroundImage} />
+            </Layer>
+            <Layer ref={layerRef}>
               {persons.map((person, i) => (
                 <CropedPerson
                   key={person.id}

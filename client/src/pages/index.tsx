@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import { RoundedLink } from 'components/atoms/Link'
 import type { NextPage } from 'next'
+import Link from 'next/link'
 
 const Home: NextPage = () => {
   return (
@@ -36,15 +37,22 @@ const Home: NextPage = () => {
             <p>人の思い出に入り込もう</p>
             <p>捏造した思い出をみんなと共有しよう</p>
           </div>
-          <div className="flex justify-center lg:justify-start mx-auto mt-40 lg:mt-0 lg:ml-[25%] lg:mb-0">
-            <RoundedLink
-              color="bg-mainBrand"
-              textColor="text-lightShades"
-              hoverColor="hover:bg-mainBrandHover"
-              href="/memory"
-            >
-              思い出を作る
-            </RoundedLink>
+          <div className="flex flex-col justify-center lg:justify-start mx-auto mt-40 lg:mt-0 lg:ml-[25%] lg:mb-0">
+            <div className="flex flex-col items-center">
+              <RoundedLink
+                color="bg-mainBrand"
+                textColor="text-lightShades"
+                hoverColor="hover:bg-mainBrandHover"
+                href="/memory"
+              >
+                思い出を作る
+              </RoundedLink>
+              <Link href={'/timeline'}>
+                <a className="mt-4 text-sm text-mainBrand lg:text-gray-200 hover:underline">
+                  みんなの思い出を見る
+                </a>
+              </Link>
+            </div>
           </div>
         </div>
       </div>
