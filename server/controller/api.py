@@ -78,7 +78,7 @@ def get_photos_persons():
 def post_photos_crop():
     request_body = request.json
     share = False
-    if "share" in request_body.keys:
+    if "share" in request_body:
         share = request_body["share"]
     return service.photos.create_nbg_photo(
         photo_key=request_body["key"],
