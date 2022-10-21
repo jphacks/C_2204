@@ -27,7 +27,7 @@ class Posts(db.Model):  # 投稿一覧
         return True
 
     def get_all() -> list:
-        return db.session.query(Posts).all()
+        return db.session.query(Posts).order_by(Posts.created_at.desc()).all()
 
 
 class PostLikes(db.Model):  # 誰がどの投稿にいいねをしたか管理
