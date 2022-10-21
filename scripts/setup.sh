@@ -5,6 +5,7 @@ curl -sL https://deb.nodesource.com/setup_16.x | sudo bash -
 sudo apt update
 sudo apt install -y nodejs
 sudo npm install -g yarn
+npm i -g next
 
 sudo apt install mysql-server -y
 
