@@ -19,7 +19,8 @@ def __to_json(photo: NbgPhotos):
 
 def get_photos():
     photos = NbgPhotos.get_all()
-    photos_json = random.shuffle(list(map(__to_json, photos)))
+    photos_json = list(map(__to_json, photos))
+    random.shuffle(photos_json)
     return make_response(jsonify(photos_json))
 
 
