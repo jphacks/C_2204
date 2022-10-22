@@ -1,6 +1,7 @@
 # Parallel Memory
 
-[![IMAGE ALT TEXT HERE](https://jphacks.com/wp-content/uploads/2022/08/JPHACKS2022_ogp.jpg)](https://www.youtube.com/watch?v=LUPQFB4QyVo)
+[![サムね](https://user-images.githubusercontent.com/58239963/197318427-f0a7da6e-32ea-438a-8910-7fc21c702883.png)
+](https://youtu.be/z2HOWhHYthA)
 
 ## 製品概要
 ### 背景(製品開発のきっかけ、課題等）
