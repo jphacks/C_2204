@@ -1,7 +1,9 @@
-# Parallel Memory
+# [Parallel Memory](https://jphacks.datech.jp/)
 
 [![サムね](https://user-images.githubusercontent.com/58239963/197318427-f0a7da6e-32ea-438a-8910-7fc21c702883.png)
 ](https://youtu.be/z2HOWhHYthA)
+
+[使ってみる！(実際のサイトに遷移)](https://jphacks.datech.jp/)
 
 ## 製品概要
 ### 背景(製品開発のきっかけ、課題等）
