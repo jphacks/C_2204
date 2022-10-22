@@ -3,6 +3,7 @@ import { Dialog, Transition } from '@headlessui/react'
 import { AxiosContext } from 'context/auth'
 import konva from 'konva'
 import Image from 'next/image'
+import { useRouter } from 'next/router'
 import { Image as RKImage, Layer, Stage } from 'react-konva'
 import { useWindowSize } from 'react-use'
 import { PresignedUrl } from 'types'
@@ -44,6 +45,8 @@ const CreateMemoryInto: React.FC<ICreateMemoryProps> = ({
   const closeModal = () => setIsOpen(false)
   const inputRef = useRef<HTMLInputElement>(null)
 
+  const router = useRouter()
+
   useEffect(() => {
     setStageSize(divRef.current?.clientWidth || 0)
   }, [width])
@@ -74,6 +77,8 @@ const CreateMemoryInto: React.FC<ICreateMemoryProps> = ({
       key: presignedUrl.key,
       body: inputRef.current?.value || '',
     })
+
+    router.push('/timeline')
   }
 
   const download = () => {
