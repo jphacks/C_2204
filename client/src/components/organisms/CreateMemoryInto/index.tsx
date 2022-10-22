@@ -55,14 +55,16 @@ const CreateMemoryInto: React.FC<ICreateMemoryProps> = ({
     if (!stageRef.current) return
     if (axiosContext.axios === undefined) return
 
-    const url = stageRef.current.getStage().toDataURL()
-    const data = await fetch(url)
-      .then((r) => r.blob())
-      .then((blobFile) => new File([blobFile], 'image', { type: 'image/png' }))
+    setSelectId(null)
 
     const presignedUrl: PresignedUrl = await axiosContext.axios
       .get('/posts/presigned-url')
       .then((res) => res.data)
+
+    const url = stageRef.current.getStage().toDataURL()
+    const data = await fetch(url)
+      .then((r) => r.blob())
+      .then((blobFile) => new File([blobFile], 'image', { type: 'image/png' }))
 
     await axiosContext.axios
       .put(presignedUrl.url, data, { headers: { 'Content-Type': data.type } })
