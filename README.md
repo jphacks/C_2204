@@ -36,6 +36,11 @@
         * waitress
         * rembg
 * Frontend
+    * TypeScript
+    * Next.js
+    * React Konva
+    * Tailwind CSS
+    * Headless UI
 * Infrastructure
     * Nginx
     * MySQL
