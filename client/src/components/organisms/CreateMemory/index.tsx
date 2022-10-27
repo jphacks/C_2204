@@ -95,26 +95,33 @@ const CreateMemory: React.FC<ICreateMemoryProps> = ({ url }) => {
       .get('/posts/presigned-url')
       .then((res) => res.data)
 
-    const url = stageRef.current.getStage().toDataURL()
-    const data = await fetch(url)
-      .then((r) => r.blob())
-      .then((blobFile) => new File([blobFile], 'image', { type: 'image/png' }))
+    setTimeout(async () => {
+      if (!stageRef.current) return
+      if (axiosContext.axios === undefined) return
 
-    await axiosContext.axios
-      .put(presignedUrl.url, data, { headers: { 'Content-Type': data.type } })
-      .then((res) => {
-        if (res.status >= 400) {
-          throw new Error(res.statusText)
-        }
+      const url = stageRef.current.getStage().toDataURL()
+      const data = await fetch(url)
+        .then((r) => r.blob())
+        .then(
+          (blobFile) => new File([blobFile], 'image', { type: 'image/png' }),
+        )
+
+      await axiosContext.axios
+        .put(presignedUrl.url, data, { headers: { 'Content-Type': data.type } })
+        .then((res) => {
+          if (res.status >= 400) {
+            throw new Error(res.statusText)
+          }
+        })
+        .catch(console.error)
+
+      await axiosContext.axios.post('/posts', {
+        key: presignedUrl.key,
+        body: inputRef.current?.value || '',
       })
-      .catch(console.error)
 
-    await axiosContext.axios.post('/posts', {
-      key: presignedUrl.key,
-      body: inputRef.current?.value || '',
-    })
-
-    router.push('/timeline')
+      router.push('/timeline')
+    }, 1000)
   }
 
   const download = () => {

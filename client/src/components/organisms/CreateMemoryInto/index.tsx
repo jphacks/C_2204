@@ -61,10 +61,11 @@ const CreateMemoryInto: React.FC<ICreateMemoryProps> = ({
       .get('/posts/presigned-url')
       .then((res) => res.data)
 
-    const url = stageRef.current.getStage().toDataURL()
-
     setTimeout(async () => {
+      if (!stageRef.current) return
       if (axiosContext.axios === undefined) return
+
+      const url = stageRef.current.getStage().toDataURL()
       const data = await fetch(url)
         .then((r) => r.blob())
         .then(
