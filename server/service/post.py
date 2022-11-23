@@ -12,7 +12,7 @@ def __to_json(post: Posts):
                 "key": post.post_key,
                 "url": f"https://{s.AWS_S3_BUCKET_NAME}.s3.ap-northeast-1.amazonaws.com/post_img/{post.post_key}",
             },
-            "user": {"id": post.created_user, "name": Users.get_user(user_id=post.created_user).user_name},
+            "user": {"id": post.created_user, "name": ""},
             "body": post.body,
             "created_at": post.created_at,
             "likes": post.likes,
